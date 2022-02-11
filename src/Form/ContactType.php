@@ -18,6 +18,7 @@ class ContactType extends AbstractType
                 "label" => "nom du contact",
                 "attr" => [
                     "placeholder"  => " nom",
+                    "class" => "maClasse"
                 ]
             ])
             ->add('prenom')

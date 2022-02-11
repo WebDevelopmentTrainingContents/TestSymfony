@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Contact;
 use App\Form\ContactType;
 use App\Repository\ContactRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -75,23 +74,31 @@ class AdminController extends AbstractController
         
         $form->handleRequest($request);
 
-    /*     if($form->isSubmitted() && $form->isValid()){
+        if($form->isSubmitted() && $form->isValid()){
         
-            dd($request);
+           /*  dd($request); */
             $manager->persist($contact);
             $manager->flush();
             $this->addFlash('success', "Bonjour " . $contact->getPrenom() . ", vous avez bien été ajouté en BDD !" );
             return $this->redirectToRoute('contact_afficher');
-        } */
+        }
       
         return $this->render('admin/ajout.html.twig', [
             'controller_name' => 'ContactController',
             "formContact" => $form->createView(),
-            "contact" => $contact
+           /*  "contact" => $contact */
 
         ]);
     }
    
+
+
+
+
+
+
+
+
 
 
 
