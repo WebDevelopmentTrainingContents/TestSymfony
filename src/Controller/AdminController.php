@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
-
 class AdminController extends AbstractController
 {
     #[Route('/admin', name: 'admin')]
@@ -27,13 +26,14 @@ class AdminController extends AbstractController
 
 
     #[Route('/gestion_contact/afficher', name: 'contact_afficher')]
+    // $cR sert à renommer ContactRepository le temps de notre fonction
     public function afficher_contacts(ContactRepository $cR): Response
     {
         $contacts = $cR->findAll();
 
 
         return $this->render('admin/index.html.twig', [
-            'controller_name' => 'ContactController',
+            /* 'controller_name' => 'ContactController', */
             "contacts" => $contacts
 
         ]);
@@ -54,21 +54,35 @@ class AdminController extends AbstractController
         ]);
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
     #[Route('/gestion_contact/ajouter', name: 'contact_ajouter')]
     public function ajouter_contacts(Request $request, EntityManagerInterface $manager): Response
     {
         $contact = new Contact;
         $form = $this->createForm(ContactType::class, $contact);
+        
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
+    /*     if($form->isSubmitted() && $form->isValid()){
         
-            /* dd($request); */
+            dd($request);
             $manager->persist($contact);
             $manager->flush();
             $this->addFlash('success', "Bonjour " . $contact->getPrenom() . ", vous avez bien été ajouté en BDD !" );
             return $this->redirectToRoute('contact_afficher');
-        }
+        } */
       
         return $this->render('admin/ajout.html.twig', [
             'controller_name' => 'ContactController',
@@ -78,6 +92,18 @@ class AdminController extends AbstractController
         ]);
     }
    
+
+
+
+
+
+
+
+
+
+
+
+
     #[Route('/gestion_contact/editer/{id}', name: 'contact_editer')]
     public function editer_contacts(Contact $contact, Request $request, EntityManagerInterface $manager): Response
     {
