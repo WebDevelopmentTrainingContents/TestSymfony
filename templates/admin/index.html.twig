@@ -26,7 +26,9 @@
 </div>
 
 {% for contact in contacts %}
-Bonjour {{ contact.nom }} {{ contact.prenom }} <br>
+Bonjour {{ contact.nom }} {{ contact.prenom }} <a href={{ path('contact_editer', {'id' : contact.id} ) }}>Modifier</a><a href={{ path('contact_supprimer', {'id' : contact.id} ) }}>Supprimer</a>
+<br>
+
 {% endfor %}
 
 {% endblock %}

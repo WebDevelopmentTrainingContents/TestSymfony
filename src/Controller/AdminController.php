@@ -38,7 +38,6 @@ class AdminController extends AbstractController
         ]);
     }
 
-
     #[Route('/gestion_contact/afficher/{contact_id}', name: 'contact_afficher_id')]
     #[ParamConverter('contact', class:"App\Entity\Contact", options: ['mapping' => ['id' => 'contact_id']])]
     public function afficher_contacts_id($id, ContactRepository $repoContact): Response
@@ -52,19 +51,6 @@ class AdminController extends AbstractController
 
         ]);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     #[Route('/gestion_contact/ajouter', name: 'contact_ajouter')]
     public function ajouter_contacts(Request $request, EntityManagerInterface $manager): Response
@@ -93,26 +79,6 @@ class AdminController extends AbstractController
    
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     #[Route('/gestion_contact/editer/{id}', name: 'contact_editer')]
     public function editer_contacts(Contact $contact, Request $request, EntityManagerInterface $manager): Response
     {
@@ -132,7 +98,7 @@ class AdminController extends AbstractController
             $manager->persist($contact);
             $manager->flush();
             
-            $this->addFlash("success", "Contact numéro " . $contact->getId() . " modifié.");
+            $this->addFlash("success", "Votre fiche contact a bien été modifiée  " . $contact->getPrenom() . ", merci !");
             
             return $this->redirectToRoute('contact_afficher');
         }
@@ -148,12 +114,13 @@ class AdminController extends AbstractController
     public function supprimer_contacts(Contact $contact, EntityManagerInterface $manager): Response
     {
 
-        $idContact = $contact->getId();
+        $prenomContact = $contact->getPrenom();
+        $nomContact = $contact->getNom();
 
         $manager->remove($contact);
         $manager->flush();
 
-        $this->addFlash("success", "Contact numéro " . $idContact . " suprimé.");
+        $this->addFlash("success", "Votre fiche contact a été supprimée " . $prenomContact . $nomContact . " !");
 
         return $this->redirectToRoute('contact_afficher');
  
